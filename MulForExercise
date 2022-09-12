@@ -1,0 +1,27 @@
+import java.util.Scanner;
+public class  MulForExercise{
+	public static void main(String[] args){
+		//1.统计三个班级成绩情况，每个班五个同学求各班级的
+		//平均分和所有班级的平均分学生成绩从键盘输入
+		//统计及格人数
+		Scanner myScanner=new Scanner(System.in);
+		
+		double totalScore=0;
+		int count=0;
+		for(int i=1;i<=3;i++){
+			double sum=0;
+			for(int j=1;j<=5;j++){
+				System.out.println("第"+i+"个班第"+j+"个同学的成绩");
+				double score=myScanner.nextDouble();//接受输入的成绩
+				if(score>=60){
+					count++;
+				}
+				sum+=score;
+			}
+			System.out.println("第"+i+"个班级的平均分为"+sum/5);//求每个班级的平均分
+			totalScore+=sum;
+		}
+		System.out.println("所有班级的平均分为"+totalScore/15);
+		System.out.println("及格人数为"+count);
+	}
+}
