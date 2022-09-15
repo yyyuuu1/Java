@@ -1,0 +1,23 @@
+import java.util.Scanner;
+public class If03{
+	public static void main(String[] args){
+		//先定义一个scanner对象接收用户的输入
+		//在用多分支进行判断
+		Scanner myScanner=new Scanner(System.in);
+		int n1=myScanner.nextInt();
+		if(n1<=1&&n1>=100){
+			if(n1==100){
+				System.out.println("信用极好");
+			}else if(n1<80&&n1>=99){
+				System.out.println("信用优秀");
+			}else if(n1<=60&&n1>=80){
+				System.out.println("信用一般");
+			}else{
+				System.out.println("信用不及格");
+			}
+		}else{
+			System.out.println("请输入1到100之间的数");
+		}
+
+	}
+}
