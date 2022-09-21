@@ -1,0 +1,32 @@
+import java.util.Scanner;
+public class ArrayAdd{
+	public static void main(String[] args){
+		int arr[]={1,2,3};//原来的数组
+		//创建一个Scanner接受用户的输入
+		Scanner myScanner=new Scanner(System.in);
+		do{
+			System.out.println("请输入要增加的元素");
+			int n=myScanner.nextInt();//接受用户输入的值
+		
+			int arrnew[]=new int[arr.length+1];//new一个比原来数组大1个的数组
+				for(int i=0;i<arr.length;i++){
+					arrnew[i]=arr[i];//把原来数组里的值拷贝到新数组里去
+				}
+			arrnew[arrnew.length-1]=n;//把接收到数赋值给新数组最后一个位置
+			arr=arrnew;//让原来数组指向新的数组
+				for(int i=0;i<arr.length;i++){//打印扩容之后的数组
+					System.out.print(arr[i]+" ");
+				}
+
+				System.out.println("是否对数组进行扩容");
+				char c=myScanner.next().charAt(0);
+				if(c=='y'){
+					System.out.println("继续扩容");
+				}else if(c=='n'){
+					break;
+				}
+
+		}while(true);
+
+	}
+}
