@@ -1,0 +1,82 @@
+package com.homework;
+
+import java.util.ArrayList;
+
+/*
+1.编程题Homework01.java 1
+按要求实现：
+(1)封装一个新闻类，包含标题和内容属性，提供get、set方法，重写toString方法，打印对象时只打印标题；
+(2)只提供一个带参数的构造器，实例化对象时，只初始化标题；并且实例化两个对象：
+新闻一：新冠确诊病例超千万，数百万印度教信徒赴恒河“圣浴”引民众担忧
+新闻二：男子突然想起2个月前钓的鱼还在网兜里，捞起一看赶紧放生
+(3)将新闻对象添加到ArrayList集合中，并且进行倒序遍历；
+(4)在遍历集合过程中，对新闻标题进行处理，超过15字只保留前15个，然后在后边加”...”
+(5)在控制台打印遍历出经过处理的新闻标题；
+ */
+@SuppressWarnings({"all"})
+public class Homework01 {
+    public static void main(String[] args) {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(new Journalism("新冠确诊病例超千万，数百万印度教信徒赴恒河“圣浴”引民众担忧"));
+        arrayList.add(new Journalism("男子突然想起2个月前钓的鱼还在网兜里，捞起一看赶紧放生"));
+
+        //注意倒序遍历时，要将集合的元素-1   判断条件是>=0因为集合从0开始  这也就是为什么要-1的原因  因为如果你arrayList.size()得到的值是2
+        //那么 实际下标是从0开始  并没有2这个下标这个元素  如果不-1会报异常
+        for (int i = arrayList.size() - 1; i >= 0; i--) {
+            //先通过ArrayList 提供的get方法获取到集合中的元素  在向下转型，转成Journalism类型在调用getLabel()方法得到标题
+            //我们的handle()方法的参数刚好直接时String类型的 因此直接把得到的标题直接当作参数传入即可
+            Journalism m = (Journalism) arrayList.get(i);
+            System.out.println(handle(m.getLabel()));
+        }
+    }
+
+    public static String handle(String label) {
+        //判断标签是否为null 如果为null返回空
+        if (label == null) {
+            return "";
+        }
+
+        //标题不为null时
+        if (label.length() > 15) {
+            //如果标题的长度大于15，就按照要求进行处理
+            //用到String类的substring()方法，截取指定范围的子串
+            return label.substring(0, 15) + "...";
+        } else {
+            //如果标题的长度小于15，就直接返回标题
+            return label;
+        }
+
+    }
+}
+
+
+class Journalism {
+    private String label;
+    private String content;
+
+    public Journalism(String label) {//因为题目要求值打印一个标题所以只需要指定一个label的构造器即可
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Journalism{" +
+                "label='" + label + '\'';
+    }
+}
