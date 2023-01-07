@@ -1,0 +1,47 @@
+package com.homework;
+
+import java.io.*;
+
+/*
+(1)在判断e盘下是否有文件夹my temp ,如果没有就创建my  temp
+(2)在e:  my  temp 目录下,创建文件 hello.txt
+(3)如果hello.txt 已经存在，提示该文件已经存在，就不要再重复创建了
+(4)并且在hello.txt 文件中，写入 hello,world~
+ */
+public class Homework01 {
+    public static void main(String[] args) throws IOException {
+
+        String directoryPath = "e:\\mytemp";//文件夹的路径
+        File file = new File(directoryPath);
+        if (!file.exists()) {//判断mytemp这个文件夹是否存在，如果不存在取反为真，会进入if语句  如果存在取反为false，不会进入if语句
+            //创建
+            if (file.mkdirs()) {
+                System.out.println("创建 " + directoryPath + " 创建成功");
+            } else {
+                System.out.println("创建 " + directoryPath + " 创建失败");
+            }
+        }
+
+        //第一种方法
+//        String filepath = "hello.txt";
+//        file = new File(directoryPath, filepath);
+
+        //第二种方法
+        String filepath = directoryPath + "\\hello.txt";
+        file = new File(filepath);
+
+        if (!file.exists()) {//判断文件是否存在，如果存在取反为假会进入else语句，如果文件不存在取反为真会创建文件
+            if (file.createNewFile()) {
+                System.out.println(filepath + "文件创建成功");
+                //文件已经存在写入信息
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+                bufferedWriter.write("hello word,你好");//写入信息
+                bufferedWriter.close();//关闭流
+            } else {
+                System.out.println(filepath + "文件创建失败");
+            }
+        } else {
+            System.out.println(filepath + "已经存在不重复创建");
+        }
+    }
+}
