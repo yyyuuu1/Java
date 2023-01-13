@@ -1,0 +1,67 @@
+package com.homework;
+
+import java.util.HashSet;
+import java.util.Objects;
+@SuppressWarnings({"all"})
+public class Homework06 {
+    public static void main(String[] args) {
+        HashSet set = new HashSet();//ok
+        Person p1 = new Person(1001,"AA");//ok
+        Person p2 = new Person(1002,"BB");//ok
+        set.add(p1);//ok
+        set.add(p2);//ok
+        p1.name = "CC";
+        set.remove(p1);
+        System.out.println(set);//2
+        set.add(new Person(1001,"CC"));
+        System.out.println(set);//3
+        set.add(new Person(1001,"AA"));
+        System.out.println(set);//4
+        /*
+        因为Person类重写了equals方法和hashCode方法，HashSet底层时HashMap在添加元素时
+        会先计算你的hash值，在转换成索引值，也就是在table表中的位置加入，如果当前位置为空
+        那么就直接加入，如果不为空则进行后续的比较
+        p1 和 p2虽然重写了hashcode方法和equals方法，但是他们的内容不相同，因此计算出来的
+        索引值也不会相同，所以能够成功的添加进去
+        在执行p1.name = "CC";时会把p1里的AA改成CC  这时set.remove(p1);想再去删除p1时
+        是根据当前的id 1001和当前的name CC来计算 ，计算过后等到的索引值会在table数组的其他位置
+        因此删除不成功
+        在执行set.add(new Person(1001,"CC"));这句话时，表中已经有了一个 id 为1001  name 为CC 
+        虽然他们的id和name都相同，但是最后添加的那个对象都是重写new出来的，他们的hash值不同 也不是同一个对象
+        所以可以 添加成功   可以通过Debug查看
+        set.add(new Person(1001,"AA"));这句话和上面相同
+         */
+    }
+}
+
+class Person {
+    public String name;
+    public int id;
+
+    public Person(int id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id &&
+                Objects.equals(name, person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
+}
