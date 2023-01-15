@@ -1,0 +1,64 @@
+package com.homework;
+
+import java.io.*;
+
+/*
+要求: 使用BufferedReader读取一个文本文件，为每行加上行号再连同内容一开输出到屏幕上。
+ */
+public class Homework02 {
+    public static void main(String[] args) {
+        String path = "e:\\a1.java";
+        String line = "";
+        int i = 1;
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(path));
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println((i++) + "\t" + line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
+
+
+//如果把文件的编码 改成了 gbk，出现中文乱码，大家思考如何解决/1.默认是按照 utf-8 处理,开始没有乱码
+// /2.提示: 使用我们的转换流，将 FilelnputStream -> InputStreamReader[可以指定编码> BufferedReader ..
+//public class Homework02 {
+//    public static void main(String[] args) {
+//        String path = "e:\\abc.txt";
+//        String line = "";
+//        int i = 1;
+//        BufferedReader bufferedReader1 = null;
+//        InputStreamReader inputStreamReader = null;
+//
+//        try {
+//            inputStreamReader= new InputStreamReader(new FileInputStream(path),"gbk");
+//            bufferedReader1 = new BufferedReader(inputStreamReader);
+//
+//            //bufferedReader = new BufferedReader(new FileReader(path));
+//            while ((line = bufferedReader1.readLine()) != null) {
+//                System.out.println((i++) + "\t" + line);
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            try {
+//                if (bufferedReader1 != null) {
+//                    bufferedReader1.close();
+//                }
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
+//}
