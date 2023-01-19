@@ -1,0 +1,60 @@
+package com.object_;
+
+import javafx.beans.binding.ObjectExpression;
+
+public class EqualsExercise01 {
+    public static void main(String[] args) {
+        Person person1 = new Person("jack", 12, '男');
+        Person person2 = new Person("jack", 12, '男');
+        System.out.println(person1.equals(person2));//在重写equals方法之后结果就变成 了true
+        //此时的结果时false因为这个时候没有重写object的equals方法因此还是object的默认equals方法所以判断的时两个地址是否相同
+        //==如果引用类型判断地址是否相同
+    }
+}
+
+class Person {
+    private String name;
+    private int age;
+    private char gender;
+
+    public boolean equals(Object obj) {
+        if (this == obj) {//判断两个对象是否相同如果相同返回true
+            return true;
+        }
+        if (obj instanceof Person) {//判断传进来的对象是否和我们要比较的对象是否相等
+            Person p = (Person) obj;//向下转型因为需要obj的属性
+            return this.name.equals(p.name) && this.age == p.age && this.gender == p.gender;
+        }
+        return false;
+    }
+
+    public Person(String name, int age, char gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+}
