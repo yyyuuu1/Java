@@ -1,0 +1,9 @@
+方法3
+springboot启动时报错 错误: 找不到或无法加载主类 com.xxx.xxx.Application
+从svn上拉下来一个自动生成代码的小项目，遇到一个贼大的坑，运行提示找不到或无法加载主类 com.xxx.xxx.Application，找了很多方法才解决，解决方法就是打开idea的控制台，输入以下三行命令
+
+mvn clean compile
+
+mvn install
+
+mvn spring-boot:run
